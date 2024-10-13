@@ -1,0 +1,20 @@
+package edu.icet.bo;
+
+import edu.icet.bo.custom.impl.EmployeeBoImpl;
+import edu.icet.util.BoType;
+
+public class BoFactory {
+    private static BoFactory instance;
+
+    private BoFactory(){}
+
+    public static BoFactory getInstance(){
+        return instance!=null?instance:(instance=new BoFactory());
+    }
+    public <T extends SuperBo>T getBo(BoType type){
+        switch (type){
+            case EMPLOYEE:return (T)new EmployeeBoImpl();
+        }
+        return null;
+    }
+}
