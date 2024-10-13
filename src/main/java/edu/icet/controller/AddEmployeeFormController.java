@@ -67,6 +67,7 @@ public class AddEmployeeFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
     }
     @FXML
     void empBtnOnActionAdd(ActionEvent event) {
