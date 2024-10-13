@@ -1,14 +1,18 @@
 package edu.icet.controller;
 
 import com.jfoenix.controls.JFXTextField;
+import edu.icet.bo.custom.impl.EmployeeBoImpl;
+import edu.icet.model.Employee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class AddEmployeeFormController implements Initializable {
@@ -64,13 +68,49 @@ public class AddEmployeeFormController implements Initializable {
     @FXML
     private JFXTextField txtEmpPassword;
 
+    EmployeeBoImpl employeeBoImpl = new EmployeeBoImpl();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
+        txtEmpID.setText("888888");
     }
+
     @FXML
     void empBtnOnActionAdd(ActionEvent event) {
+
+        Random random = new Random();
+        int p = random.nextInt(99999999) + 10000000;
+
+        String encrypt = Integer.toString(p);
+        String password = employeeBoImpl.passwordEncrypt(encrypt);
+
+        Employee user = new Employee(
+                txtEmpID.getText(),
+                txtEmpName.getText(),
+                txtEmpEmail.getText(),
+                txtEmpNic.getText(),
+                password,
+                txtEmpMobile.getText()
+        );
+        if (!txtEmpName.getText().equals("") && employeeBoImpl.isValidEmail(txtEmpEmail.getText()) && !txtEmpNic.getText().equals("")) {
+
+
+            boolean isInsert = employeeBoImpl.insertUser(user);
+            if (isInsert) {
+                //Table1.setItems(userBoImpl.getAllUsers());
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Employee Added");
+                alert.setContentText("Employee Added Successfully..!");
+                alert.showAndWait();
+                //txtId.setText(userBoImpl.generateEmployeeId());
+                //txtAddress.setText("");
+                //txtName.setText("");
+                //txtEmail.setText("");
+            }
+
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Somthing Wrong..!!!").show();
+        }
 
     }
 
