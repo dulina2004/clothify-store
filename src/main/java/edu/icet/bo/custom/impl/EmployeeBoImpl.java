@@ -39,4 +39,24 @@ public class EmployeeBoImpl implements EmployeeBo {
         EmployeeEntity userEntity = new ObjectMapper().convertValue(employee, EmployeeEntity.class);
         return employeeDaoImpl.insert(userEntity);
     }
+
+    public ObservableList getAllUsers() {
+
+        ObservableList<EmployeeEntity> list = employeeDaoImpl.searchAll();
+        ObservableList<Employee> userList = FXCollections.observableArrayList();
+
+        list.forEach(userEntity -> {
+            userList.add(new ObjectMapper().convertValue(userEntity,Employee.class));
+        });
+        return userList;
+    }
+
+    public boolean updateUser(Employee employee) {
+        EmployeeEntity userEntity = new ObjectMapper().convertValue(employee, EmployeeEntity.class);
+        return employeeDaoImpl.update(userEntity);
+    }
+
+    public boolean deleteUserById(String text) {
+        return employeeDaoImpl.delete(text);
+    }
 }

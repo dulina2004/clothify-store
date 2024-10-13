@@ -19,7 +19,7 @@ public class EmployeeEntity {
     private String id;
     private String name;
     private String mobile;
-    private String NIC;
+    private String nic;
     private String email;
     private String Password;
 }

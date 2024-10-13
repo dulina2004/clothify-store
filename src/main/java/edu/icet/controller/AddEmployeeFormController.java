@@ -7,11 +7,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -72,7 +75,40 @@ public class AddEmployeeFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        EmpID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        EmpName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        EmpMobile.setCellValueFactory(new PropertyValueFactory<>("mobile"));
+        EmpNic.setCellValueFactory(new PropertyValueFactory<>("nic"));
+
+        EmpTable.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldValue, newValue) -> {
+            if (newValue != null) {
+                setTextToValues((Employee) newValue);
+            }
+        }));
+
+        EmpTable.setItems(employeeBoImpl.getAllUsers());
         txtEmpID.setText(employeeBoImpl.generateEmployeeId());
+    }
+
+    private void setTextToValues(Employee newValue) {
+        txtEmpID.setText(newValue.getId());
+        txtEmpName.setText(newValue.getName());
+        txtEmpMobile.setText(newValue.getMobile());
+        txtEmpNic.setText(newValue.getNic());
+        txtEmpEmail.setText(newValue.getEmail());
+    }
+
+    private void refreshTable(){
+        EmpTable.setItems(employeeBoImpl.getAllUsers());
+    }
+
+    private void clear(){
+        txtEmpID.setText(employeeBoImpl.generateEmployeeId());
+        txtEmpName.setText("");
+        txtEmpMobile.setText("");
+        txtEmpNic.setText("");
+        txtEmpEmail.setText("");
+        txtEmpPassword.setText("");
     }
 
     @FXML
@@ -90,25 +126,19 @@ public class AddEmployeeFormController implements Initializable {
                 txtEmpMobile.getText(),
                 txtEmpNic.getText(),
                 txtEmpEmail.getText(),
-                password
-
+                txtEmpPassword.getText()
         );
         if (!txtEmpName.getText().equals("") && employeeBoImpl.isValidEmail(txtEmpEmail.getText()) && !txtEmpNic.getText().equals("")) {
-
             System.out.println(employee.toString());
             boolean isInsert = employeeBoImpl.insertUser(employee);
             if (isInsert) {
-                //Table1.setItems(userBoImpl.getAllUsers());
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Employee Added");
                 alert.setContentText("Employee Added Successfully..!");
                 alert.showAndWait();
-                //txtId.setText(userBoImpl.generateEmployeeId());
-                //txtAddress.setText("");
-                //txtName.setText("");
-                //txtEmail.setText("");
+                clear();
+                refreshTable();
             }
-
         } else {
             new Alert(Alert.AlertType.ERROR, "Somthing Wrong..!!!").show();
         }
@@ -117,7 +147,24 @@ public class AddEmployeeFormController implements Initializable {
 
     @FXML
     void empBtnOnActionDelete(ActionEvent event) {
+        if (!txtEmpID.getText().equals("")){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Deleting");
+            alert.setContentText("Are you sure want to delete this Employee");
+            Optional<ButtonType> result = alert.showAndWait();
 
+            if (result.get()== ButtonType.OK){
+                boolean isDeleted = employeeBoImpl.deleteUserById(txtEmpID.getText());
+                if (isDeleted){
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setTitle("Employee Deleted");
+                    alert2.setContentText("Employee deleted successfully");
+                    alert2.showAndWait();
+                    clear();
+                    refreshTable();
+                }
+            }
+        }
     }
 
     @FXML
@@ -127,6 +174,39 @@ public class AddEmployeeFormController implements Initializable {
 
     @FXML
     void empBtnOnActionUpdate(ActionEvent event) {
+
+        if (!txtEmpName.getText().equals("") && employeeBoImpl.isValidEmail(txtEmpEmail.getText()) && !txtEmpNic.getText().equals("")){
+            Employee employee = new Employee(
+                    txtEmpID.getText(),
+                    txtEmpName.getText(),
+                    txtEmpMobile.getText(),
+                    txtEmpNic.getText(),
+                    txtEmpEmail.getText(),
+                    txtEmpPassword.getText()
+            );
+
+            boolean isInsert = employeeBoImpl.updateUser(employee);
+            if (isInsert) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Employee update");
+                alert.setContentText("Employee Updated Successfully..!");
+                alert.showAndWait();
+                clear();
+                refreshTable();
+            }else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Couldn't update!");
+                alert.showAndWait();
+                clear();
+                refreshTable();
+            }
+        }else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Something Missing");
+            alert.setContentText("Please Check your Form again..!!!");
+            alert.showAndWait();
+        }
 
     }
 

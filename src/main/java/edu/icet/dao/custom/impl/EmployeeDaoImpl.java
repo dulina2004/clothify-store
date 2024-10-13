@@ -3,9 +3,13 @@ package edu.icet.dao.custom.impl;
 import edu.icet.dao.custom.EmployeeDao;
 import edu.icet.entity.EmployeeEntity;
 import edu.icet.util.HibernateUtil;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+
+import java.util.List;
 
 public class EmployeeDaoImpl implements EmployeeDao {
     public static String getLatestId() {
@@ -25,7 +29,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public ObservableList<EmployeeEntity> searchAll() {
-        return null;
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.getTransaction();
+        List<EmployeeEntity> userList = session.createQuery("FROM employee").list();
+        ObservableList<EmployeeEntity> list= FXCollections.observableArrayList();
+        session.close();
+        userList.forEach(userEntity -> {
+            list.add(userEntity);
+        });
+        return list;
     }
 
     @Override
@@ -40,11 +52,30 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public boolean update(EmployeeEntity employeeEntity) {
-        return false;
+        Session session = HibernateUtil.getSession();
+        session.getTransaction().begin();
+        Query query = session.createQuery("UPDATE employee SET name =:name,nic =:nic,email =:email ,mobile =:mobile WHERE id =:id");
+        query.setParameter("name",employeeEntity.getName());
+        query.setParameter("nic",employeeEntity.getNic());
+        query.setParameter("email",employeeEntity.getEmail());
+        query.setParameter("mobile",employeeEntity.getMobile());
+        query.setParameter("id",employeeEntity.getId());
+
+        int i = query.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+        return i>0;
     }
 
     @Override
-    public boolean delete(String s) {
-        return false;
+    public boolean delete(String id) {
+        Session session = HibernateUtil.getSession();
+        session.getTransaction().begin();
+        Query query = session.createQuery("DELETE FROM employee WHERE id=:id");
+        query.setParameter("id",id);
+        int i = query.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+        return i>0;
     }
 }
