@@ -30,7 +30,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public boolean insert(EmployeeEntity employeeEntity) {
-        System.out.println("asdada");
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
         session.persist(employeeEntity);

@@ -72,7 +72,7 @@ public class AddEmployeeFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        txtEmpID.setText("888888");
+        txtEmpID.setText(employeeBoImpl.generateEmployeeId());
     }
 
     @FXML
@@ -84,18 +84,19 @@ public class AddEmployeeFormController implements Initializable {
         String encrypt = Integer.toString(p);
         String password = employeeBoImpl.passwordEncrypt(encrypt);
 
-        Employee user = new Employee(
+        Employee employee = new Employee(
                 txtEmpID.getText(),
                 txtEmpName.getText(),
-                txtEmpEmail.getText(),
+                txtEmpMobile.getText(),
                 txtEmpNic.getText(),
-                password,
-                txtEmpMobile.getText()
+                txtEmpEmail.getText(),
+                password
+
         );
         if (!txtEmpName.getText().equals("") && employeeBoImpl.isValidEmail(txtEmpEmail.getText()) && !txtEmpNic.getText().equals("")) {
 
-
-            boolean isInsert = employeeBoImpl.insertUser(user);
+            System.out.println(employee.toString());
+            boolean isInsert = employeeBoImpl.insertUser(employee);
             if (isInsert) {
                 //Table1.setItems(userBoImpl.getAllUsers());
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
