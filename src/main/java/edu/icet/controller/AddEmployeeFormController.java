@@ -1,8 +1,10 @@
 package edu.icet.controller;
 
 import com.jfoenix.controls.JFXTextField;
+import edu.icet.bo.BoFactory;
 import edu.icet.bo.custom.impl.EmployeeBoImpl;
 import edu.icet.model.Employee;
+import edu.icet.util.BoType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -71,7 +73,7 @@ public class AddEmployeeFormController implements Initializable {
     @FXML
     private JFXTextField txtEmpPassword;
 
-    EmployeeBoImpl employeeBoImpl = new EmployeeBoImpl();
+    EmployeeBoImpl employeeBoImpl = BoFactory.getInstance().getBo(BoType.EMPLOYEE);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

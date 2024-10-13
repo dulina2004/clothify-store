@@ -27,7 +27,7 @@
                         <Font name="Century Gothic" size="18.0" />
                      </font>
                   </Label>
-                  <JFXTextField layoutX="14.0" layoutY="53.0" prefHeight="41.0" prefWidth="107.0" promptText="C001" styleClass="user-input" stylesheets="@style.css" />
+                  <JFXTextField fx:id="txtCusID" layoutX="14.0" layoutY="53.0" prefHeight="41.0" prefWidth="107.0" promptText="C001" styleClass="user-input" stylesheets="@style.css" />
                </children>
             </Pane>
             <Label layoutX="14.0" layoutY="14.0" prefHeight="70.0" prefWidth="464.0" text="Customer Management" textFill="#193d5d" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
@@ -42,12 +42,12 @@
                   </ImageView>
                </graphic>
             </Label>
-            <TableView layoutX="54.0" layoutY="446.0" prefHeight="239.0" prefWidth="763.0" styleClass="custom-table-view" stylesheets="@style.css">
+            <TableView fx:id="tblCustomer" layoutX="54.0" layoutY="446.0" prefHeight="239.0" prefWidth="763.0" styleClass="custom-table-view" stylesheets="@style.css">
               <columns>
-                <TableColumn prefWidth="105.60000228881836" text="Customer Id" />
-                <TableColumn prefWidth="175.2000274658203" text="Customer Name" />
-                  <TableColumn prefWidth="193.5999755859375" text="Email" />
-                  <TableColumn prefWidth="286.4000122070313" text="Customer Address" />
+                <TableColumn fx:id="CusID" prefWidth="105.60000228881836" text="Customer Id" />
+                <TableColumn fx:id="CusName" prefWidth="175.2000274658203" text="Customer Name" />
+                  <TableColumn fx:id="CusEmail" prefWidth="193.5999755859375" text="Email" />
+                  <TableColumn fx:id="cusAddress" prefWidth="286.4000122070313" text="Customer Address" />
               </columns>
             </TableView>
             <Pane fx:id="dpane_1111" layoutX="218.0" layoutY="85.0" prefHeight="106.0" prefWidth="306.0" style="-fx-background-color: #7ea5c3;" styleClass="dpane_1" stylesheets="@style.css">
@@ -57,7 +57,7 @@
                         <Font name="Century Gothic" size="18.0" />
                      </font>
                   </Label>
-                  <JFXTextField layoutX="14.0" layoutY="53.0" prefHeight="25.0" prefWidth="277.0" styleClass="user-input" stylesheets="@style.css" />
+                  <JFXTextField fx:id="txtCusName" layoutX="14.0" layoutY="53.0" prefHeight="25.0" prefWidth="277.0" styleClass="user-input" stylesheets="@style.css" />
                </children>
             </Pane>
             <Pane fx:id="dpane_11111" layoutX="51.0" layoutY="205.0" prefHeight="106.0" prefWidth="306.0" style="-fx-background-color: #7ea5c3;" styleClass="dpane_1" stylesheets="@style.css">
@@ -67,7 +67,7 @@
                         <Font name="Century Gothic" size="18.0" />
                      </font>
                   </Label>
-                  <JFXTextField layoutX="14.0" layoutY="53.0" prefHeight="25.0" prefWidth="277.0" styleClass="user-input" stylesheets="@style.css" />
+                  <JFXTextField fx:id="txtCusEmail" layoutX="14.0" layoutY="53.0" prefHeight="25.0" prefWidth="277.0" styleClass="user-input" stylesheets="@style.css" />
                </children>
             </Pane>
             <Pane fx:id="dpane_111111" layoutX="51.0" layoutY="325.0" prefHeight="106.0" prefWidth="464.0" style="-fx-background-color: #7ea5c3;" styleClass="dpane_1" stylesheets="@style.css">
@@ -77,10 +77,10 @@
                         <Font name="Century Gothic" size="18.0" />
                      </font>
                   </Label>
-                  <JFXTextField layoutX="14.0" layoutY="53.0" prefHeight="41.0" prefWidth="435.0" styleClass="user-input" stylesheets="@style.css" />
+                  <JFXTextField fx:id="txtCusAddress" layoutX="14.0" layoutY="53.0" prefHeight="41.0" prefWidth="435.0" styleClass="user-input" stylesheets="@style.css" />
                </children>
             </Pane>
-            <JFXButton contentDisplay="TOP" layoutX="373.0" layoutY="204.0" prefHeight="106.0" prefWidth="138.0" styleClass="search-btn" stylesheets="@style.css" text="Search" textAlignment="CENTER">
+            <JFXButton contentDisplay="TOP" layoutX="373.0" layoutY="204.0" onAction="#cusBtnSearch" prefHeight="106.0" prefWidth="138.0" styleClass="search-btn" stylesheets="@style.css" text="Search" textAlignment="CENTER">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
                </font>
@@ -92,7 +92,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton contentDisplay="TOP" layoutX="537.0" layoutY="85.0" prefHeight="106.0" prefWidth="138.0" styleClass="search-btn" stylesheets="@style.css" text="ADD" textAlignment="CENTER">
+            <JFXButton contentDisplay="TOP" layoutX="537.0" layoutY="85.0" onAction="#cusBtnAdd" prefHeight="106.0" prefWidth="138.0" styleClass="search-btn" stylesheets="@style.css" text="ADD" textAlignment="CENTER">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
                </font>
@@ -104,7 +104,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton contentDisplay="TOP" layoutX="537.0" layoutY="204.0" prefHeight="106.0" prefWidth="138.0" styleClass="search-btn" stylesheets="@style.css" text="Update" textAlignment="CENTER">
+            <JFXButton contentDisplay="TOP" layoutX="537.0" layoutY="204.0" onAction="#cusBtnUpdate" prefHeight="106.0" prefWidth="138.0" styleClass="search-btn" stylesheets="@style.css" text="Update" textAlignment="CENTER">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
                </font>
@@ -116,7 +116,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton contentDisplay="TOP" layoutX="537.0" layoutY="325.0" prefHeight="106.0" prefWidth="138.0" styleClass="search-btn" stylesheets="@style.css" text="Delete" textAlignment="CENTER">
+            <JFXButton contentDisplay="TOP" layoutX="537.0" layoutY="325.0" onAction="#cusBtnDelete" prefHeight="106.0" prefWidth="138.0" styleClass="search-btn" stylesheets="@style.css" text="Delete" textAlignment="CENTER">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
                </font>

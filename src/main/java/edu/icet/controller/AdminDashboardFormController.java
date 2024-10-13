@@ -4,11 +4,15 @@ import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-public class AdminDashboardFormController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class AdminDashboardFormController implements Initializable {
 
     @FXML
     private JFXButton addCustomerNavBtn;
@@ -106,4 +110,14 @@ public class AdminDashboardFormController {
         }
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            Parent fxml= FXMLLoader.load(getClass().getResource("/view/AddCustomerForm.fxml"));
+            centerContainer.getChildren().removeAll();
+            centerContainer.getChildren().setAll(fxml);
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+    }
 }
