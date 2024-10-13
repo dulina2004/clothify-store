@@ -169,6 +169,17 @@ public class AddEmployeeFormController implements Initializable {
 
     @FXML
     void empBtnOnActionSearch(ActionEvent event) {
+        try {
+            Employee employee = employeeBoImpl.searchUserByName(txtEmpName.getText());
+            if (employee!=null){
+                txtEmpID.setText(employee.getId());
+                txtEmpNic.setText(employee.getNic());
+                txtEmpEmail.setText(employee.getEmail());
+                txtEmpMobile.setText(employee.getMobile());
+            }
+        } catch (Exception e) {
+            System.out.println("not found");
+        }
 
     }
 

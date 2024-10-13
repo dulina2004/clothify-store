@@ -1,6 +1,7 @@
 package edu.icet.bo.custom.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jfoenix.controls.JFXTextField;
 import edu.icet.bo.custom.EmployeeBo;
 import edu.icet.dao.DaoFactory;
 import edu.icet.dao.custom.impl.EmployeeDaoImpl;
@@ -58,5 +59,11 @@ public class EmployeeBoImpl implements EmployeeBo {
 
     public boolean deleteUserById(String text) {
         return employeeDaoImpl.delete(text);
+    }
+
+
+    public Employee searchUserByName(String name) {
+        EmployeeEntity employeeEntity = employeeDaoImpl.searchByName(name);
+        return new ObjectMapper().convertValue(employeeEntity,Employee.class);
     }
 }

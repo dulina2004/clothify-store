@@ -78,4 +78,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
         session.close();
         return i>0;
     }
+
+    public EmployeeEntity searchByName(String name) {
+        Session session = HibernateUtil.getSession();
+        session.getTransaction();
+
+        Query query = session.createQuery("FROM employee WHERE name=:name");
+        query.setParameter("name",name);
+        EmployeeEntity userEntity = (EmployeeEntity) query.uniqueResult();
+        session.close();
+        return userEntity;
+    }
 }
