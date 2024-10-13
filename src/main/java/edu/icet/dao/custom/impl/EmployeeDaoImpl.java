@@ -12,7 +12,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
 
-        Query query = session.createQuery("SELECT id FROM user ORDER BY id DESC LIMIT 1");
+        Query query = session.createQuery("SELECT id FROM employee ORDER BY id DESC LIMIT 1");
         String id = (String) query.uniqueResult();
         session.close();
         return id;
