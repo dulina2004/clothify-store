@@ -99,12 +99,6 @@ public class addCustomerFormController implements Initializable {
     }
     @FXML
     void cusBtnAdd(ActionEvent event) {
-        Random random = new Random();
-        int p = random.nextInt(99999999) + 10000000;
-
-        String encrypt = Integer.toString(p);
-        String password = customerBoImpl.passwordEncrypt(encrypt);
-
         Customer customer = new Customer(
                 txtCusID.getText(),
                 txtCusName.getText(),

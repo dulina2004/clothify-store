@@ -74,7 +74,7 @@ public class AdminDashboardFormController implements Initializable {
             centerContainer.getChildren().removeAll();
             centerContainer.getChildren().setAll(fxml);
         } catch (Exception e) {
-            System.out.println("error");
+            System.out.println(e);
         }
     }
 
@@ -106,14 +106,14 @@ public class AdminDashboardFormController implements Initializable {
             centerContainer.getChildren().removeAll();
             centerContainer.getChildren().setAll(fxml);
         } catch (Exception e) {
-            System.out.println("error");
+            System.out.println(e);
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            Parent fxml= FXMLLoader.load(getClass().getResource("/view/AddCustomerForm.fxml"));
+            Parent fxml= FXMLLoader.load(getClass().getResource("/view/demoForm.fxml"));
             centerContainer.getChildren().removeAll();
             centerContainer.getChildren().setAll(fxml);
         } catch (Exception e) {

@@ -12,23 +12,33 @@ import org.hibernate.query.Query;
 import java.util.List;
 
 public class EmployeeDaoImpl implements EmployeeDao {
-    public static String getLatestId() {
+    @Override
+    public String getLatestId() {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-
         Query query = session.createQuery("SELECT id FROM employee ORDER BY id DESC LIMIT 1");
         String id = (String) query.uniqueResult();
         session.close();
         return id;
     }
-
     @Override
-    public EmployeeEntity search(String s) {
-        return null;
+    public EmployeeEntity searchByName(String name) {
+        Session session = HibernateUtil.getSession();
+        session.getTransaction();
+        Query query = session.createQuery("FROM employee WHERE name=:name");
+        query.setParameter("name",name);
+        EmployeeEntity userEntity = (EmployeeEntity) query.uniqueResult();
+        session.close();
+        return userEntity;
+    }
+    @Override
+    public EmployeeEntity search(String id) {
+        Session session = HibernateUtil.getSession();
+        return session.get(EmployeeEntity.class, id);
     }
 
     @Override
-    public ObservableList<EmployeeEntity> searchAll() {
+    public ObservableList<EmployeeEntity> getAll() {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.getTransaction();
         List<EmployeeEntity> userList = session.createQuery("FROM employee").list();
@@ -41,7 +51,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public boolean insert(EmployeeEntity employeeEntity) {
+    public boolean save(EmployeeEntity employeeEntity) {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
         session.persist(employeeEntity);
@@ -53,40 +63,20 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public boolean update(EmployeeEntity employeeEntity) {
         Session session = HibernateUtil.getSession();
-        session.getTransaction().begin();
-        Query query = session.createQuery("UPDATE employee SET name =:name,nic =:nic,email =:email ,mobile =:mobile WHERE id =:id");
-        query.setParameter("name",employeeEntity.getName());
-        query.setParameter("nic",employeeEntity.getNic());
-        query.setParameter("email",employeeEntity.getEmail());
-        query.setParameter("mobile",employeeEntity.getMobile());
-        query.setParameter("id",employeeEntity.getId());
-
-        int i = query.executeUpdate();
+        session.beginTransaction();
+        session.merge(employeeEntity.getId(),employeeEntity);
         session.getTransaction().commit();
-        session.close();
-        return i>0;
+        return true;
     }
 
     @Override
     public boolean delete(String id) {
         Session session = HibernateUtil.getSession();
-        session.getTransaction().begin();
-        Query query = session.createQuery("DELETE FROM employee WHERE id=:id");
-        query.setParameter("id",id);
-        int i = query.executeUpdate();
+        session.beginTransaction();
+        session.remove(session.get(EmployeeEntity.class,id));
         session.getTransaction().commit();
-        session.close();
-        return i>0;
+        return true;
     }
 
-    public EmployeeEntity searchByName(String name) {
-        Session session = HibernateUtil.getSession();
-        session.getTransaction();
 
-        Query query = session.createQuery("FROM employee WHERE name=:name");
-        query.setParameter("name",name);
-        EmployeeEntity userEntity = (EmployeeEntity) query.uniqueResult();
-        session.close();
-        return userEntity;
-    }
 }

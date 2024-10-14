@@ -116,12 +116,6 @@ public class AddEmployeeFormController implements Initializable {
     @FXML
     void empBtnOnActionAdd(ActionEvent event) {
 
-        Random random = new Random();
-        int p = random.nextInt(99999999) + 10000000;
-
-        String encrypt = Integer.toString(p);
-        String password = employeeBoImpl.passwordEncrypt(encrypt);
-
         Employee employee = new Employee(
                 txtEmpID.getText(),
                 txtEmpName.getText(),
