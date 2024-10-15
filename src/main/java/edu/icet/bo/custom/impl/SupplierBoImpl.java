@@ -61,6 +61,12 @@ public class SupplierBoImpl implements SupplierBo {
         return new ObjectMapper().convertValue(supplierEntity,Supplier.class);
     }
 
+    @Override
+    public Supplier searchSupplierByID(String id) {
+        SupplierEntity supplierEntity = supplierDao.search(id);
+        return new ObjectMapper().convertValue(supplierEntity,Supplier.class);
+    }
+
     public boolean isValidEmail(String email) {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         return email.matches(regex);

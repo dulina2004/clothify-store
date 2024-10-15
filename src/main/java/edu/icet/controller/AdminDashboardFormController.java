@@ -96,7 +96,13 @@ public class AdminDashboardFormController implements Initializable {
 
     @FXML
     void productNavBtnOnAction(ActionEvent event) {
-
+        try {
+            Parent fxml= FXMLLoader.load(getClass().getResource("/view/AddItemForm.fxml"));
+            centerContainer.getChildren().removeAll();
+            centerContainer.getChildren().setAll(fxml);
+        } catch (Exception e) {
+            System.out.println("error");
+        }
     }
 
     @FXML

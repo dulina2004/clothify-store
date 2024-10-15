@@ -2,6 +2,7 @@ package edu.icet.util;
 
 import edu.icet.entity.CustomerEntity;
 import edu.icet.entity.EmployeeEntity;
+import edu.icet.entity.ItemEntity;
 import edu.icet.entity.SupplierEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,7 +22,7 @@ public class HibernateUtil {
                 .addAnnotatedClass(EmployeeEntity.class)
                 .addAnnotatedClass(CustomerEntity.class)
                 .addAnnotatedClass(SupplierEntity.class)
-//                .addAnnotatedClass(ProductEntity.class)
+                .addAnnotatedClass(ItemEntity.class)
 //                .addAnnotatedClass(OrderEntity.class)
 //                .addAnnotatedClass(OrderHasItemEntity.class)
                 .getMetadataBuilder()
