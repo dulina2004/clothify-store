@@ -2,6 +2,7 @@ package edu.icet.bo;
 
 import edu.icet.bo.custom.impl.CustomerBoImpl;
 import edu.icet.bo.custom.impl.EmployeeBoImpl;
+import edu.icet.bo.custom.impl.SupplierBoImpl;
 import edu.icet.dao.custom.impl.SupplierDaoImpl;
 import edu.icet.util.BoType;
 
@@ -17,7 +18,7 @@ public class BoFactory {
         switch (type){
             case EMPLOYEE:return (T)new EmployeeBoImpl();
             case CUSTOMER:return (T)new CustomerBoImpl();
-            case SUPPLIER:return (T)new SupplierDaoImpl();
+            case SUPPLIER:return (T)new SupplierBoImpl();
         }
         return null;
     }

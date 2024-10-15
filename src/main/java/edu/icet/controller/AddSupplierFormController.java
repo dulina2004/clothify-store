@@ -7,6 +7,7 @@ import edu.icet.bo.custom.impl.SupplierBoImpl;
 import edu.icet.model.Customer;
 import edu.icet.model.Supplier;
 import edu.icet.util.BoType;
+import edu.icet.util.Validator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -169,10 +170,10 @@ public class AddSupplierFormController implements Initializable {
             System.out.println("not found");
         }
     }
-
+    Validator validator=new Validator();
     @FXML
     void supBtnUpdateOnAction(ActionEvent event) {
-        if (!txtSupName.getText().equals("") && supplierBo.isValidEmail(txtSupEmail.getText()) && !txtSupMobile.getText().equals("")){
+        if (!txtSupName.getText().equals("") && validator.isValidEmail(txtSupEmail.getText()) && !txtSupMobile.getText().equals("")){
             Supplier supplier = new Supplier(
                     txtSupID.getText(),
                     txtSupName.getText(),
