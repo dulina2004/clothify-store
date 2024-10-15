@@ -140,7 +140,7 @@
                             </font>
                         </Label>
                         <JFXTextField fx:id="txtSupName" layoutX="150.0" layoutY="53.0" prefHeight="41.0" prefWidth="262.0" styleClass="user-input" stylesheets="@style.css" />
-                  <JFXComboBox fx:id="txtSupID" layoutX="14.0" layoutY="61.0" prefHeight="33.0" prefWidth="86.0" />
+                  <JFXComboBox fx:id="txtSupID" layoutX="14.0" layoutY="61.0" onAction="#supIDAction" prefHeight="33.0" prefWidth="86.0" />
                   <Label layoutX="159.0" prefHeight="54.0" prefWidth="174.0" text="Supplier Name" textFill="WHITE">
                      <font>
                         <Font name="Century Gothic" size="18.0" />

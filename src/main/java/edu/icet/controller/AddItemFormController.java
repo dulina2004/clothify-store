@@ -71,6 +71,10 @@ public class AddItemFormController implements Initializable {
     private JFXTextField txtSupName;
 
     @FXML
+    void supIDAction(ActionEvent event) {
+        txtSupName.setText(supplierBo.searchSupplierByID(txtSupID.getValue()).getName());
+    }
+    @FXML
     void btnAddOnAction(ActionEvent event) {
         Item item = new Item(
                 txtID.getText(),
