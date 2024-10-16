@@ -269,5 +269,6 @@ public class AddItemFormController implements Initializable {
         txtSize.setValue("");
         txtSupID.setValue("");
         txtSupName.setText("");
+        txtID.setText(itemBo.generateItemId());
     }
 }

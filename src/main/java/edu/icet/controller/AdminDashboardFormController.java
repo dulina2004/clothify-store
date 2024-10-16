@@ -91,7 +91,13 @@ public class AdminDashboardFormController implements Initializable {
 
     @FXML
     void placeOrderNavBtnOnAction(ActionEvent event) {
-
+        try {
+            Parent fxml= FXMLLoader.load(getClass().getResource("/view/PlaceOrderForm.fxml"));
+            centerContainer.getChildren().removeAll();
+            centerContainer.getChildren().setAll(fxml);
+        } catch (Exception e) {
+            System.out.println("error");
+        }
     }
 
     @FXML
