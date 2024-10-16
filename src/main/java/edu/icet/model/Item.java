@@ -16,5 +16,5 @@ public class Item {
     private Integer qty;
     private String category;
     private String size;
-    private String supId;
+    private Supplier supplier;
 }

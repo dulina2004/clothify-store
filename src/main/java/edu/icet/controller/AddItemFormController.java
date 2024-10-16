@@ -72,7 +72,11 @@ public class AddItemFormController implements Initializable {
 
     @FXML
     void supIDAction(ActionEvent event) {
-        txtSupName.setText(supplierBo.searchSupplierByID(txtSupID.getValue()).getName());
+        try {
+            txtSupName.setText(supplierBo.searchSupplierByID(txtSupID.getValue()).getName());
+        } catch (Exception e) {
+            System.out.println("111");
+        }
     }
     @FXML
     void btnAddOnAction(ActionEvent event) {
@@ -83,7 +87,7 @@ public class AddItemFormController implements Initializable {
                 Integer.parseInt(txtQty.getText()),
                 txtCategory.getValue(),
                 txtSize.getValue(),
-                txtSupID.getValue()
+                supplierBo.searchSupplierByID(txtSupID.getValue())
         );
         if (!txtName.getText().equals("")) {
             System.out.println(item.toString());
@@ -132,8 +136,8 @@ public class AddItemFormController implements Initializable {
                 txtSize.setValue(item.getSize());
                 txtPrice.setText(item.getUnitPrice()+"");
                 txtQty.setText(item.getQty()+"");
-                txtSupID.setValue(item.getSupId());
-                txtSupName.setText(supplierBo.searchSupplierByID(item.getSupId()).getName());
+                txtSupID.setValue(item.getSupplier().getId());
+                txtSupName.setText(item.getSupplier().getName());
             }
         } catch (Exception e) {
             System.out.println("not found");
@@ -150,7 +154,7 @@ public class AddItemFormController implements Initializable {
                     Integer.parseInt(txtQty.getText()),
                     txtCategory.getValue(),
                     txtSize.getValue(),
-                    txtSupID.getValue()
+                    supplierBo.searchSupplierByID(txtSupID.getValue())
             );
 
             boolean isInsert = itemBo.updateItem(item);
@@ -222,8 +226,8 @@ public class AddItemFormController implements Initializable {
         txtQty.setText(newValue.getQty()+"");
         txtCategory.setValue(newValue.getCategory());
         txtSize.setValue(newValue.getSize());
-        txtSupID.setValue(newValue.getSupId());
-        txtSupName.setText(supplierBo.searchSupplierByID(newValue.getSupId()).getName());
+        txtSupID.setValue(newValue.getSupplier().getId());
+        txtSupName.setText(newValue.getSupplier().getName());
     }
 
     private void loadCategoryMenu() {

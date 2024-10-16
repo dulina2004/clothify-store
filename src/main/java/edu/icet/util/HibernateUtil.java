@@ -1,9 +1,6 @@
 package edu.icet.util;
 
-import edu.icet.entity.CustomerEntity;
-import edu.icet.entity.EmployeeEntity;
-import edu.icet.entity.ItemEntity;
-import edu.icet.entity.SupplierEntity;
+import edu.icet.entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;

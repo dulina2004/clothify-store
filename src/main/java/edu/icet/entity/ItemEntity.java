@@ -1,8 +1,6 @@
 package edu.icet.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,5 +20,8 @@ public class ItemEntity {
     private Integer qty;
     private String category;
     private String size;
-    private String supId;
+    // Many-to-one relationship
+    @ManyToOne
+    @JoinColumn(name = "supplier_id") //  foreign key column
+    private SupplierEntity supplier;
 }
