@@ -5,7 +5,9 @@ import edu.icet.bo.custom.CustomerBo;
 import edu.icet.dao.DaoFactory;
 import edu.icet.dao.custom.CustomerDao;
 import edu.icet.entity.CustomerEntity;
+import edu.icet.entity.ItemEntity;
 import edu.icet.model.Customer;
+import edu.icet.model.Item;
 import edu.icet.util.DaoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -62,5 +64,11 @@ public class CustomerBoImpl implements CustomerBo {
     public Customer searchUserByName(String name) {
         CustomerEntity customerEntity = customerDaoImpl.searchByName(name);
         return new ObjectMapper().convertValue(customerEntity,Customer.class);
+    }
+
+    @Override
+    public Customer searchItemByID(String id) {
+        CustomerEntity customerEntity = customerDaoImpl.search(id);
+        return new ObjectMapper().convertValue(customerEntity, Customer.class);
     }
 }

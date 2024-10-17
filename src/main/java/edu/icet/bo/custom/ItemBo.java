@@ -1,6 +1,7 @@
 package edu.icet.bo.custom;
 import edu.icet.bo.SuperBo;
 import edu.icet.model.Item;
+import edu.icet.model.Supplier;
 import javafx.collections.ObservableList;
 
 public interface ItemBo extends SuperBo {
@@ -10,4 +11,5 @@ public interface ItemBo extends SuperBo {
     boolean updateItem(Item item);
     boolean deleteItemById(String text);
     Item searchItemByName(String name);
+    Item searchItemByID(String id);
 }

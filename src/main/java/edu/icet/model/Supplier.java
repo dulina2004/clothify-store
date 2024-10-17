@@ -1,6 +1,9 @@
 package edu.icet.model;
 
+import edu.icet.entity.ItemEntity;
 import lombok.*;
+
+import java.util.List;
 
 @ToString
 @Getter

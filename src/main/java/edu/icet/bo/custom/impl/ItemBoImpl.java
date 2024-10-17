@@ -60,4 +60,10 @@ public class ItemBoImpl implements ItemBo {
         ItemEntity itemEntity = itemDao.searchByName(name);
         return new ObjectMapper().convertValue(itemEntity,Item.class);
     }
+
+    @Override
+    public Item searchItemByID(String id) {
+        ItemEntity itemEntity = itemDao.search(id);
+        return new ObjectMapper().convertValue(itemEntity,Item.class);
+    }
 }
