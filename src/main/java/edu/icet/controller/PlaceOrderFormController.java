@@ -88,9 +88,23 @@ public class PlaceOrderFormController implements Initializable {
         Integer qty=Integer.parseInt(txtQty.getText());
         Double unitPrice=Double.parseDouble(txtUnitPrice.getText());
         Double total=unitPrice*qty;
-        TblCart cart=new TblCart(itemCode,itemName,qty,unitPrice,total);
-        cartList.add(cart);
-        tblCart.setItems(cartList);
+        boolean available=false;
+        for(TblCart c:cartList){
+            if (c.getItemCode().equals(itemCode)){
+                available=true;
+                c.setQty(c.getQty()+qty);
+                c.setTotal(c.getTotal()+total);
+                tblCart.getItems().clear();
+                break;
+            }
+        }
+        if (!available) {
+            TblCart cart = new TblCart(itemCode, itemName, qty, unitPrice, total);
+            cartList.add(cart);
+        }
+        tblCart.setItems(FXCollections.observableArrayList(cartList));
+        //tblCart.setItems(cartList);
+        //System.out.println(cartList);
         Double net=Double.parseDouble(netTotal.getText())+total;
         netTotal.setText(net+"");
     }
@@ -218,5 +232,10 @@ public class PlaceOrderFormController implements Initializable {
         txtItemName.setText(null);
         txtQty.setText(null);
         netTotal.setText("0");
+        txtUnitPrice.setText("0");
+        txtSize.setText("0");
+        cartList = FXCollections.observableArrayList();
+        orderDetailList=new ArrayList<>();
+        tblCart.setItems(cartList);
     }
 }
