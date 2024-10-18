@@ -6,6 +6,8 @@ import edu.icet.bo.BoFactory;
 import edu.icet.bo.custom.CustomerBo;
 import edu.icet.bo.custom.ItemBo;
 import edu.icet.bo.custom.OrderBo;
+import edu.icet.bo.custom.impl.OrderBoImpl;
+import edu.icet.entity.OrderDetailEntity;
 import edu.icet.model.*;
 import edu.icet.util.BoType;
 import javafx.collections.FXCollections;
@@ -78,7 +80,7 @@ public class PlaceOrderFormController implements Initializable {
     private Label txtUnitPrice;
 
     ObservableList<TblCart> cartList = FXCollections.observableArrayList();
-    List<OrderDetail> orderDetailList=new ArrayList<>();
+    List<OrderDetailEntity> orderDetailList=new ArrayList<>();
     @FXML
     void btnAddItemOnAction(ActionEvent event) {
         String itemCode=txtItemCode.getValue();
@@ -100,7 +102,19 @@ public class PlaceOrderFormController implements Initializable {
         Customer customer=customerBo.searchItemByID(txtCustID.getValue());
         String orderID=txtOrderID.getText();
         Order order=new Order(orderID,customer,orderDate,orderTotal);
-        orderBo.insertOrder(order);
+
+        for(TblCart cart : cartList){
+            OrderDetailEntity orderDetailEntity=new OrderDetailEntity(cart.getItemCode(), cart.getQty(), cart.getTotal());
+            orderDetailList.add(orderDetailEntity);
+        }
+
+        orderBo.insert(order,orderDetailList);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setContentText("Order Placed Successfully");
+        alert.showAndWait();
+        clear();
     }
 
     @FXML
@@ -181,7 +195,7 @@ public class PlaceOrderFormController implements Initializable {
 
         txtDate.setText(dateNow);
     }
-    OrderBo orderBo=BoFactory.getInstance().getBo(BoType.ORDER);
+    OrderBoImpl orderBo=BoFactory.getInstance().getBo(BoType.ORDER);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -198,5 +212,11 @@ public class PlaceOrderFormController implements Initializable {
     }
     private void clear(){
         txtOrderID.setText(orderBo.generateOrderId());
+        txtCustID.setValue(null);
+        txtCustName.setText(null);
+        txtItemCode.setValue(null);
+        txtItemName.setText(null);
+        txtQty.setText(null);
+        netTotal.setText("0");
     }
 }

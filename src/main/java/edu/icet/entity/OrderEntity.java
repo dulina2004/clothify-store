@@ -25,4 +25,7 @@ public class OrderEntity {
     private CustomerEntity customer;
     private LocalDate date;
     private Double netTotal;
+
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private List<OrderDetailEntity> orderDetails =new ArrayList<>();
 }

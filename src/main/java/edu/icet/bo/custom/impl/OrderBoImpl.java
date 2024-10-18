@@ -6,6 +6,7 @@ import edu.icet.dao.DaoFactory;
 import edu.icet.dao.custom.OrderDao;
 import edu.icet.entity.CustomerEntity;
 import edu.icet.entity.ItemEntity;
+import edu.icet.entity.OrderDetailEntity;
 import edu.icet.entity.OrderEntity;
 import edu.icet.model.Item;
 import edu.icet.model.Order;
@@ -13,6 +14,8 @@ import edu.icet.util.DaoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.modelmapper.ModelMapper;
+
+import java.util.List;
 
 public class OrderBoImpl implements OrderBo {
     OrderDao orderDao= DaoFactory.getInstance().getDao(DaoType.ORDER);
@@ -29,11 +32,29 @@ public class OrderBoImpl implements OrderBo {
 
     @Override
     public boolean insertOrder(Order order) {
+//        System.out.println(order);
+//        CustomerEntity customer=new ObjectMapper().convertValue(order.getCustomer(),CustomerEntity.class);
+//        OrderEntity orderEntity=new OrderEntity(order.getId(),customer,order.getDate(),order.getNetTotal());
+//        System.out.println(orderEntity);
+//        return orderDao.save(orderEntity);
+        return true;
+    }
+
+    public boolean insert(Order order, List<OrderDetailEntity> orderDetailList) {
         System.out.println(order);
         CustomerEntity customer=new ObjectMapper().convertValue(order.getCustomer(),CustomerEntity.class);
-        OrderEntity orderEntity=new OrderEntity(order.getId(),customer,order.getDate(),order.getNetTotal());
-        System.out.println(orderEntity);
+        OrderEntity orderEntity=new OrderEntity(order.getId(),customer,order.getDate(),order.getNetTotal(),null);
+
+        for(OrderDetailEntity orderDetailEntity:orderDetailList){
+            orderDetailEntity.setOrder(orderEntity);
+            System.out.println(orderDetailEntity);
+        }
+        orderEntity.setOrderDetails(orderDetailList);
+        System.out.println("orderEntity");
+
+
         return orderDao.save(orderEntity);
+        //return true;
     }
 
     @Override
