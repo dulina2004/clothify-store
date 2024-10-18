@@ -5,9 +5,8 @@ import com.jfoenix.controls.JFXTextField;
 import edu.icet.bo.BoFactory;
 import edu.icet.bo.custom.CustomerBo;
 import edu.icet.bo.custom.ItemBo;
-import edu.icet.model.Customer;
-import edu.icet.model.Item;
-import edu.icet.model.Supplier;
+import edu.icet.bo.custom.OrderBo;
+import edu.icet.model.*;
 import edu.icet.util.BoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,10 +17,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class PlaceOrderFormController implements Initializable {
@@ -30,7 +33,7 @@ public class PlaceOrderFormController implements Initializable {
     private Label netTotal;
 
     @FXML
-    private TableView<?> tblCart;
+    private TableView<TblCart> tblCart;
 
     @FXML
     private TableColumn<?, ?> tblItemCode;
@@ -74,14 +77,30 @@ public class PlaceOrderFormController implements Initializable {
     @FXML
     private Label txtUnitPrice;
 
+    ObservableList<TblCart> cartList = FXCollections.observableArrayList();
+    List<OrderDetail> orderDetailList=new ArrayList<>();
     @FXML
     void btnAddItemOnAction(ActionEvent event) {
-
+        String itemCode=txtItemCode.getValue();
+        String itemName=txtItemName.getText();
+        Integer qty=Integer.parseInt(txtQty.getText());
+        Double unitPrice=Double.parseDouble(txtUnitPrice.getText());
+        Double total=unitPrice*qty;
+        TblCart cart=new TblCart(itemCode,itemName,qty,unitPrice,total);
+        cartList.add(cart);
+        tblCart.setItems(cartList);
+        Double net=Double.parseDouble(netTotal.getText())+total;
+        netTotal.setText(net+"");
     }
 
     @FXML
     void btnPlaceOrderOnAction(ActionEvent event) {
-
+        LocalDate orderDate = LocalDate.now();
+        Double orderTotal = Double.parseDouble(netTotal.getText());
+        Customer customer=customerBo.searchItemByID(txtCustID.getValue());
+        String orderID=txtOrderID.getText();
+        Order order=new Order(orderID,customer,orderDate,orderTotal);
+        orderBo.insertOrder(order);
     }
 
     @FXML
@@ -162,11 +181,22 @@ public class PlaceOrderFormController implements Initializable {
 
         txtDate.setText(dateNow);
     }
-
+    OrderBo orderBo=BoFactory.getInstance().getBo(BoType.ORDER);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        tblItemCode.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
+        tblItemName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+        tblQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        tblPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+        tblTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+
         loadCustomerIdmenu();
         loadItemIdmenu();
         loadDateAndTime();
+        clear();
+    }
+    private void clear(){
+        txtOrderID.setText(orderBo.generateOrderId());
     }
 }

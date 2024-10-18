@@ -89,6 +89,7 @@ public class AddItemFormController implements Initializable {
                 txtSize.getValue(),
                 supplierBo.searchSupplierByID(txtSupID.getValue())
         );
+        System.out.println(item);
         if (!txtName.getText().equals("")) {
             System.out.println(item.toString());
             boolean isInsert = itemBo.insertItem(item);

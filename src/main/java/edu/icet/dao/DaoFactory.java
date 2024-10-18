@@ -1,8 +1,5 @@
 package edu.icet.dao;
-import edu.icet.dao.custom.impl.CustomerDaoImpl;
-import edu.icet.dao.custom.impl.EmployeeDaoImpl;
-import edu.icet.dao.custom.impl.ItemDaoImpl;
-import edu.icet.dao.custom.impl.SupplierDaoImpl;
+import edu.icet.dao.custom.impl.*;
 import edu.icet.util.DaoType;
 
 public class DaoFactory {
@@ -20,6 +17,7 @@ public class DaoFactory {
             case CUSTOMER:return (T)new CustomerDaoImpl();
             case SUPPLIER:return (T)new SupplierDaoImpl();
             case ITEM:return (T)new ItemDaoImpl();
+            case ORDER:return (T)new OrderDaoImpl();
         }
         return null;
     }
