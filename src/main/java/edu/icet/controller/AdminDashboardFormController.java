@@ -124,7 +124,13 @@ public class AdminDashboardFormController implements Initializable {
 
     @FXML
     void OrderHistryNavBtnOnAction(ActionEvent event) {
-
+        try {
+            Parent fxml= FXMLLoader.load(getClass().getResource("/view/ViewOrderForm.fxml"));
+            centerContainer.getChildren().removeAll();
+            centerContainer.getChildren().setAll(fxml);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
     @FXML
     void LogOutNavBtnOnAction(ActionEvent event) {

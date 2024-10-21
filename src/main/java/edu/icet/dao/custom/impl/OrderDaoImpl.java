@@ -24,6 +24,9 @@ public class OrderDaoImpl implements OrderDao {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.getTransaction();
         List<OrderEntity> orderList = session.createQuery("FROM orders").list();
+        for (OrderEntity i:orderList){
+            i.setOrderDetails(null);
+        }
         ObservableList<OrderEntity> list= FXCollections.observableArrayList();
         session.close();
         orderList.forEach(orderItem -> {

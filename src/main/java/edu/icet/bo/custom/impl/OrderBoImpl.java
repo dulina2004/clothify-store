@@ -50,20 +50,15 @@ public class OrderBoImpl implements OrderBo {
             System.out.println(orderDetailEntity);
         }
         orderEntity.setOrderDetails(orderDetailList);
-        System.out.println("orderEntity");
-
-
         return orderDao.save(orderEntity);
-        //return true;
     }
 
     @Override
     public ObservableList getAllOrders() {
         ObservableList<OrderEntity> list = orderDao.getAll();
         ObservableList<Order> orderList = FXCollections.observableArrayList();
-
         list.forEach(itemEntity -> {
-            orderList.add(new ObjectMapper().convertValue(itemEntity,Order.class));
+            orderList.add(new ModelMapper().map(itemEntity,Order.class));
         });
         return orderList;
     }
