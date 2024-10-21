@@ -107,6 +107,7 @@ public class PlaceOrderFormController implements Initializable {
         netTotal.setText(net+"");
     }
 
+
     @FXML
     void btnPlaceOrderOnAction(ActionEvent event) {
         LocalDate orderDate = LocalDate.now();
@@ -117,6 +118,19 @@ public class PlaceOrderFormController implements Initializable {
 
         for(TblCart cart : cartList){
             OrderDetailEntity orderDetailEntity=new OrderDetailEntity(cart.getItemCode(), cart.getQty(), cart.getTotal());
+
+            Item item=itemBo.searchItemByID(orderDetailEntity.getItemID());
+            Integer newQty=item.getQty()-orderDetailEntity.getQty();
+            if (newQty<0){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Error");
+                alert.setContentText("Out of stock : Item Code"+item.getId());
+                alert.showAndWait();
+                return;
+            }
+            item.setQty(newQty);
+            itemBo.updateItem(item);
+
             orderDetailList.add(orderDetailEntity);
         }
 
