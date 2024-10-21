@@ -103,8 +103,6 @@ public class PlaceOrderFormController implements Initializable {
             cartList.add(cart);
         }
         tblCart.setItems(FXCollections.observableArrayList(cartList));
-        //tblCart.setItems(cartList);
-        //System.out.println(cartList);
         Double net=Double.parseDouble(netTotal.getText())+total;
         netTotal.setText(net+"");
     }

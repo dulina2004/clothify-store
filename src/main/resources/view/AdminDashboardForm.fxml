@@ -22,18 +22,18 @@
                               <Image url="@img/pane1.png" />
                            </image>
                         </ImageView>
-                        <Pane fx:id="most_inner_pane" layoutX="161.0" layoutY="4.0" prefHeight="65.0" prefWidth="33.0" styleClass="most_inner_pane" stylesheets="@style.css">
+                        <Pane fx:id="most_inner_pane" layoutX="139.0" layoutY="4.0" prefHeight="65.0" prefWidth="55.0" styleClass="most_inner_pane" stylesheets="@style.css">
                            <children>
-                              <ImageView fitHeight="37.0" fitWidth="61.0" layoutX="-4.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="37.0" fitWidth="61.0" layoutX="9.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@img/icons8-menu-vertical-100.png" />
+                                    <Image url="@img/icons8-admin-100.png" />
                                  </image>
                               </ImageView>
                            </children>
                         </Pane>
                      </children>
                   </Pane>
-                  <JFXButton fx:id="homeNavBtn" layoutX="14.0" layoutY="160.0" onAction="#homeNavBtnOnAction" prefHeight="54.0" prefWidth="200.0" styleClass="btn" stylesheets="@style.css" text="Home" textFill="#fffbfb">
+                  <JFXButton fx:id="homeNavBtn" layoutX="15.0" layoutY="161.0" onAction="#homeNavBtnOnAction" prefHeight="54.0" prefWidth="200.0" styleClass="btn" stylesheets="@style.css" text="Home" textFill="#fffbfb">
                      <font>
                         <Font name="Century Gothic Bold" size="14.0" />
                      </font>
@@ -45,7 +45,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="addCustomerNavBtn" layoutX="14.0" layoutY="242.0" onAction="#addCustomerNavBtnOnAction" prefHeight="54.0" prefWidth="200.0" styleClass="btn" stylesheets="@style.css" text="Add Customer" textFill="#fffbfb">
+                  <JFXButton fx:id="addCustomerNavBtn" layoutX="14.0" layoutY="215.0" onAction="#addCustomerNavBtnOnAction" prefHeight="54.0" prefWidth="200.0" styleClass="btn" stylesheets="@style.css" text="Add Customer" textFill="#fffbfb">
                      <font>
                         <Font name="Century Gothic Bold" size="14.0" />
                      </font>
@@ -57,7 +57,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="placeOrderNavBtn" layoutX="14.0" layoutY="321.0" onAction="#placeOrderNavBtnOnAction" prefHeight="54.0" prefWidth="200.0" styleClass="btn" stylesheets="@style.css" text="Place Order" textFill="#fffbfb">
+                  <JFXButton fx:id="placeOrderNavBtn" layoutX="14.0" layoutY="269.0" onAction="#placeOrderNavBtnOnAction" prefHeight="54.0" prefWidth="200.0" styleClass="btn" stylesheets="@style.css" text="Place Order" textFill="#fffbfb">
                      <font>
                         <Font name="Century Gothic Bold" size="14.0" />
                      </font>
@@ -69,7 +69,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="supplierNavBtn" layoutX="14.0" layoutY="397.0" onAction="#supplierNavBtnOnAction" prefHeight="54.0" prefWidth="200.0" styleClass="btn" stylesheets="@style.css" text="Supplier Details" textFill="#fffbfb">
+                  <JFXButton fx:id="supplierNavBtn" layoutX="14.0" layoutY="323.0" onAction="#supplierNavBtnOnAction" prefHeight="54.0" prefWidth="200.0" styleClass="btn" stylesheets="@style.css" text="Supplier Details" textFill="#fffbfb">
                      <font>
                         <Font name="Century Gothic Bold" size="14.0" />
                      </font>
@@ -81,7 +81,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="productNavBtn" layoutX="14.0" layoutY="471.0" onAction="#productNavBtnOnAction" prefHeight="54.0" prefWidth="200.0" styleClass="btn" stylesheets="@style.css" text="Product Details" textFill="#fffbfb">
+                  <JFXButton fx:id="productNavBtn" layoutX="14.0" layoutY="377.0" onAction="#productNavBtnOnAction" prefHeight="54.0" prefWidth="200.0" styleClass="btn" stylesheets="@style.css" text="Product Details" textFill="#fffbfb">
                      <font>
                         <Font name="Century Gothic Bold" size="14.0" />
                      </font>
@@ -93,7 +93,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="manageEmployeeBtn" layoutX="14.0" layoutY="544.0" onAction="#ManageEmployeeNavBtnOnAction1" prefHeight="54.0" prefWidth="200.0" styleClass="btn" stylesheets="@style.css" text="Mange Emplyee" textFill="#fffbfb">
+                  <JFXButton fx:id="manageEmployeeBtn" layoutX="15.0" layoutY="431.0" onAction="#ManageEmployeeNavBtnOnAction1" prefHeight="54.0" prefWidth="200.0" styleClass="btn" stylesheets="@style.css" text="Mange Emplyee" textFill="#fffbfb">
                      <font>
                         <Font name="Century Gothic Bold" size="14.0" />
                      </font>
@@ -101,6 +101,30 @@
                         <ImageView fitHeight="44.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@img/emp.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton layoutX="15.0" layoutY="485.0" onAction="#OrderHistryNavBtnOnAction" prefHeight="54.0" prefWidth="200.0" styleClass="btn" stylesheets="@style.css" text="OrderHistory" textFill="#fffbfb">
+                     <font>
+                        <Font name="Century Gothic Bold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="44.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/icons8-order-history-100.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton layoutX="15.0" layoutY="631.0" onAction="#LogOutNavBtnOnAction" prefHeight="54.0" prefWidth="200.0" styleClass="btn" stylesheets="@style.css" text="Log Out" textFill="#fffbfb">
+                     <font>
+                        <Font name="Century Gothic Bold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="44.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/icons8-log-out-1000.png" />
                            </image>
                         </ImageView>
                      </graphic>

@@ -122,6 +122,14 @@ public class AdminDashboardFormController implements Initializable {
         }
     }
 
+    @FXML
+    void OrderHistryNavBtnOnAction(ActionEvent event) {
+
+    }
+    @FXML
+    void LogOutNavBtnOnAction(ActionEvent event) {
+
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -132,4 +140,5 @@ public class AdminDashboardFormController implements Initializable {
             System.out.println("error");
         }
     }
+
 }
