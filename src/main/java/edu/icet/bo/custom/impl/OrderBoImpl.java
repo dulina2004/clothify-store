@@ -10,6 +10,7 @@ import edu.icet.entity.OrderDetailEntity;
 import edu.icet.entity.OrderEntity;
 import edu.icet.model.Item;
 import edu.icet.model.Order;
+import edu.icet.model.orderTblObj;
 import edu.icet.util.DaoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -56,10 +57,17 @@ public class OrderBoImpl implements OrderBo {
     @Override
     public ObservableList getAllOrders() {
         ObservableList<OrderEntity> list = orderDao.getAll();
-        ObservableList<Order> orderList = FXCollections.observableArrayList();
-        list.forEach(itemEntity -> {
-            orderList.add(new ModelMapper().map(itemEntity,Order.class));
+
+        ObservableList<orderTblObj> orderList = FXCollections.observableArrayList();
+        list.forEach(i -> {
+            orderList.add(new orderTblObj(i.getId(),i.getDate(),i.getNetTotal(),i.getCustomer().getId()));
         });
+
+//        ObservableList<Order> orderList = FXCollections.observableArrayList();
+//        list.forEach(itemEntity -> {
+//            orderList.add(new ModelMapper().map(itemEntity,Order.class));
+//        });
+
         return orderList;
     }
 

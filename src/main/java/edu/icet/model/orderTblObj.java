@@ -14,6 +14,6 @@ import java.time.LocalDate;
 public class orderTblObj {
     private String id;
     private LocalDate date;
-    private Integer netTotal;
+    private Double netTotal;
     private String custID;
 }

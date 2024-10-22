@@ -47,7 +47,10 @@ public class ViewOrderFormController implements Initializable {
         orderID.setCellValueFactory(new PropertyValueFactory<>("id"));
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
         netTotal.setCellValueFactory(new PropertyValueFactory<>("netTotal"));
-        custID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        custID.setCellValueFactory(new PropertyValueFactory<>("custID"));
+
+
+        System.out.println(orderBo.getAllOrders());
         tblOrder.setItems(orderBo.getAllOrders());
     }
 }

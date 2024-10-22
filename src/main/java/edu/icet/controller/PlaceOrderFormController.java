@@ -118,7 +118,6 @@ public class PlaceOrderFormController implements Initializable {
 
         for(TblCart cart : cartList){
             OrderDetailEntity orderDetailEntity=new OrderDetailEntity(cart.getItemCode(), cart.getQty(), cart.getTotal());
-
             Item item=itemBo.searchItemByID(orderDetailEntity.getItemID());
             Integer newQty=item.getQty()-orderDetailEntity.getQty();
             if (newQty<0){
@@ -126,16 +125,16 @@ public class PlaceOrderFormController implements Initializable {
                 alert.setTitle("Error");
                 alert.setContentText("Out of stock : Item Code"+item.getId());
                 alert.showAndWait();
+                cartList.remove(cart);
+                tblCart.setItems(cartList);
+                tblCart.refresh();
                 return;
             }
             item.setQty(newQty);
             itemBo.updateItem(item);
-
             orderDetailList.add(orderDetailEntity);
         }
-
         orderBo.insert(order,orderDetailList);
-
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success");
         alert.setContentText("Order Placed Successfully");
