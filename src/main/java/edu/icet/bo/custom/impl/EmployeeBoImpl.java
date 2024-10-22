@@ -65,4 +65,10 @@ public class EmployeeBoImpl implements EmployeeBo {
         EmployeeEntity employeeEntity = employeeDaoImpl.searchByName(name);
         return new ObjectMapper().convertValue(employeeEntity,Employee.class);
     }
+
+    @Override
+    public Employee searchUserByEmail(String email) {
+        EmployeeEntity employeeEntity = employeeDaoImpl.searchByEmail(email);
+        return new ObjectMapper().convertValue(employeeEntity,Employee.class);
+    }
 }

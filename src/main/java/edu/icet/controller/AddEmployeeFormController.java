@@ -5,6 +5,7 @@ import edu.icet.bo.BoFactory;
 import edu.icet.bo.custom.impl.EmployeeBoImpl;
 import edu.icet.model.Employee;
 import edu.icet.util.BoType;
+import edu.icet.util.Validator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -112,7 +113,7 @@ public class AddEmployeeFormController implements Initializable {
         txtEmpEmail.setText("");
         txtEmpPassword.setText("");
     }
-
+    Validator validator=new Validator();
     @FXML
     void empBtnOnActionAdd(ActionEvent event) {
 
@@ -122,7 +123,7 @@ public class AddEmployeeFormController implements Initializable {
                 txtEmpMobile.getText(),
                 txtEmpNic.getText(),
                 txtEmpEmail.getText(),
-                txtEmpPassword.getText()
+                validator.hashPassword(txtEmpPassword.getText())
         );
         if (!txtEmpName.getText().equals("") && employeeBoImpl.isValidEmail(txtEmpEmail.getText()) && !txtEmpNic.getText().equals("")) {
             System.out.println(employee.toString());
@@ -189,7 +190,7 @@ public class AddEmployeeFormController implements Initializable {
                     txtEmpMobile.getText(),
                     txtEmpNic.getText(),
                     txtEmpEmail.getText(),
-                    txtEmpPassword.getText()
+                    validator.hashPassword(txtEmpPassword.getText())
             );
 
             boolean isInsert = employeeBoImpl.updateUser(employee);

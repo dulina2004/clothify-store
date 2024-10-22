@@ -12,4 +12,5 @@ public interface EmployeeBo extends SuperBo {
     boolean updateUser(Employee employee);
     boolean deleteUserById(String text);
     Employee searchUserByName(String name);
+    Employee searchUserByEmail(String email);
 }
