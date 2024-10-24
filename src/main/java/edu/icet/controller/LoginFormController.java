@@ -12,9 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-
 public class LoginFormController {
 
     @FXML
@@ -26,7 +24,13 @@ public class LoginFormController {
     Validator validator=new Validator();
     @FXML
     void forgotBtnOnAction(ActionEvent event) {
-
+        try {
+            Stage stage = new Stage();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/OtpForm.fxml"))));
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -35,7 +39,6 @@ public class LoginFormController {
             try {
                 Stage stage0 = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage0.close();
-
                 Stage stage = new Stage();
                 stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/AdminDashboardForm.fxml"))));
                 stage.show();
