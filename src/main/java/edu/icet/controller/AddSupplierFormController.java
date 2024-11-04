@@ -142,14 +142,21 @@ public class AddSupplierFormController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get()== ButtonType.OK){
-            boolean isDeleted = supplierBo.deleteUserById(txtSupID.getText());
-            if (isDeleted){
+            try {
+                boolean isDeleted = supplierBo.deleteUserById(txtSupID.getText());
+                if (isDeleted){
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setTitle("Supplier Deleted");
+                    alert2.setContentText("Supplier deleted successfully");
+                    alert2.showAndWait();
+                    clear();
+                    refreshTable();
+                }
+            } catch (Exception e) {
                 Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                alert2.setTitle("Supplier Deleted");
-                alert2.setContentText("Supplier deleted successfully");
+                alert2.setTitle("Error");
+                alert2.setContentText("You can't delete this this customer now");
                 alert2.showAndWait();
-                clear();
-                refreshTable();
             }
         }
     }
@@ -157,18 +164,15 @@ public class AddSupplierFormController implements Initializable {
 
     @FXML
     void supBtnSearchOnAction(ActionEvent event) {
-        try {
-            Supplier supplier = supplierBo.searchUserByName(txtSupName.getText());
-            if (supplier!=null){
-                txtSupID.setText(supplier.getId());
-                txtSupName.setText(supplier.getName());
-                txtSupEmail.setText(supplier.getEmail());
-                txtSupMobile.setText(supplier.getMobile());
-                txtSupCompany.setText(supplier.getCompany());
-            }
-        } catch (Exception e) {
-            System.out.println("not found");
+        Supplier supplier = supplierBo.searchUserByName(txtSupName.getText());
+        if (supplier!=null){
+            txtSupID.setText(supplier.getId());
+            txtSupName.setText(supplier.getName());
+            txtSupEmail.setText(supplier.getEmail());
+            txtSupMobile.setText(supplier.getMobile());
+            txtSupCompany.setText(supplier.getCompany());
         }
+
     }
     Validator validator=new Validator();
     @FXML

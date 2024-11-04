@@ -1,4 +1,5 @@
 package edu.icet.controller;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import edu.icet.bo.BoFactory;
 import edu.icet.bo.custom.EmployeeBo;
@@ -16,7 +17,7 @@ import java.io.IOException;
 public class LoginFormController {
 
     @FXML
-    private JFXTextField txtPassword;
+    private JFXPasswordField txtPassword;
 
     @FXML
     private JFXTextField txtUserName;
